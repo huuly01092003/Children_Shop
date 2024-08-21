@@ -1,0 +1,41 @@
+﻿@model DoAn_WebsiteBanQuanAoTreEm.Models.QuanAo
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_LayoutPage1.cshtml";
+}
+
+<h2>Bạn có chắc chắn muốn xóa sản phẩm này?</h2>
+
+<div class="container-md mt-5">
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th scope="row" class="col-md-3">Tên sản phẩm:</th>
+                <td class="col-md-9">@Html.DisplayFor(model => model.tenSP)</td>
+            </tr>
+            <tr>
+                <th scope="row" class="col-md-3">Hình ảnh sản phẩm:</th>
+                <td class="col-md-9">
+                    <img src="/img/product/@Model.img" class="img-thumbnail" alt="Hình ảnh sản phẩm" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    @using (Html.BeginForm("Delete", "Product","Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Xóa" class="btn btn-danger" style="width:100px;"/> |
+                @Html.ActionLink("Trở về trang chủ", "Index", "product", "admin", new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+    }
+</div>
+
+
+
+

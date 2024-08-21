@@ -1,0 +1,131 @@
+﻿@model List<DoAn_WebsiteBanQuanAoTreEm.Models.LoaiQuanAo>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_LayoutPage1.cshtml";
+}
+
+<div class="container my-4">
+    <h2>Danh sách chủ đề</h2>
+
+    <button type="button" id="btnGetCategory">GetCategory</button>
+    <button type="button" id="btnCreateCategory">CreateCategory</button>
+    <table class="table table-bordered categoryTable">
+        <thead>
+            <tr>
+                <th>Tên chủ đề</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">ViewCategory</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tr>
+                            <td>Category ID</td>
+                            <td><span id="CategoryIDSpan"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Category Name</td>
+                            <td><span id="CategoryNameSpan"></span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        $('#btnGetCategory').click(() => {
+            $.ajax({
+                type: 'GET',
+                url: '/api/category',
+                success: (responses) => {
+                    $('.categoryTable tbody').empty(); // Clear existing rows
+                    for (var i = 0; i < responses.length; i++) {
+                        const categoryRow = responses[i];
+                        const strHTML = '<tr><td>' + categoryRow.MaLoai + '</td><td>' + categoryRow.TenLoai + '</td><td><button type="button" class="btn btn-secondary btnViewCategory" data-bs-toggle="modal" data-bs-target="#exampleModal" data-categoryid="' + categoryRow.MaLoai + '">View</button></td><td><button type="button" class="btn btn-secondary btnUpdateCategory" data-bs-categoryid="' + categoryRow.MaLoai + '">Update</button></td><td><button type="button" class="btn btn-secondary btnDeleteCategory" data-bs-categoryid="' + categoryRow.MaLoai + '">Delete</button></td></tr>';
+                        $('.categoryTable tbody').append(strHTML);
+                    }
+                },
+                error: (err) => { console.log(err); }
+            });
+        });
+
+        $('#btnCreateCategory').click(() => {
+            const categoryName = prompt("Enter category name:");
+            if (categoryName !== null && categoryName.trim() !== "") {
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/category',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ TenLoai: categoryName }),
+                    success: (response) => {
+                        $('#btnGetCategory').click();
+                    },
+                    error: (err) => { console.log(err); }
+                });
+            }
+        });
+
+        $(document).on('click', '.btnViewCategory', (event) => {
+            const categoryId = $(event.target).data('categoryid');
+            $.ajax({
+                type: 'GET',
+                url: `/api/category?id=${categoryId}`,
+                success: (response) => {
+                    $('#CategoryIDSpan').html(response.MaLoai);
+                    $('#CategoryNameSpan').html(response.TenLoai);
+                },
+                error: (err) => { console.log(err); }
+            });
+        });
+
+        $(document).on('click', '.btnUpdateCategory', (event) => {
+            const categoryId = $(event.target).data('bs-categoryid');
+            const newCategoryName = prompt("Enter new category name:");
+            if (newCategoryName !== null && newCategoryName.trim() !== "") {
+                $.ajax({
+                    type: 'PUT',
+                    url: `/api/category/${categoryId}`,
+                    contentType: 'application/json',
+                    data: JSON.stringify({ MaLoai: categoryId, TenLoai: newCategoryName }),
+                    success: (response) => {
+                        $('#btnGetCategory').click();
+                    },
+                    error: (err) => { console.log(err); }
+                });
+            }
+        });
+
+        $(document).on('click', '.btnDeleteCategory', (event) => {
+            const categoryId = $(event.target).data('bs-categoryid');
+            const confirmDelete = confirm("Are you sure you want to delete this category?");
+            if (confirmDelete) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: `/api/category/${categoryId}`,
+                    success: (response) => {
+                        $('#btnGetCategory').click();
+                    },
+                    error: (err) => { console.log(err); }
+                });
+            }
+        });
+
+    </script>
+</div>

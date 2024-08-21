@@ -1,0 +1,152 @@
+﻿@model List<DoAn_WebsiteBanQuanAoTreEm.Models.QuanAo>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<!-- Header Section End -->
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__links">
+                    <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                    <span>Shop</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Shop Section Begin -->
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="shop__sidebar">
+                    <div class="sidebar__categories">
+                        <div class="section-title">
+                            <h4>SORT</h4>
+                        </div>
+                        <div class="categories__accordion">
+                            <div class="accordion" id="accordionExample">
+                                <div class="card">
+                                    <div class="card-heading active">
+
+                                    </div>
+                                    <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                        <div class="card-body">
+
+                                            <form action="/home/index" method="get" class="container-md my-2">
+                                                <select id="SortColumn" name="SortColumn">
+                                                    <option value="">-- All --</option>
+                                                    <option value="NameAsc">Name Asc</option>
+                                                    <option value="GiaBanAsc">Price Asc</option>
+                                                    <option value="NameDesc">Name Desc</option>
+                                                    <option value="GiaBanDesc">Price Desc</option>
+                                                </select>
+                                                <input type="submit" value="Sắp xếp" class="bg-primary" style="width:70 px;border-radius:5px;">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar__sizes">
+                        <div class="section-title">
+                            <h4>CATEGORY</h4>
+                        </div>
+                        <form action="/home/index" method="get" class="container-md my-2">
+                            <select id="LoaiQuanAo" name="LoaiQuanAo">
+                                <option value="">-- All --</option>
+                                @foreach (var loaiQuanAo in ViewBag.LoaiQuanAos)
+                                {
+                                    <option value="@loaiQuanAo.maLoai">@loaiQuanAo.tenLoai</option>
+                                }
+                            </select>
+                            <input type="submit" value="Lọc" class="bg-primary" style="width: 70px; border-radius: 5px;">
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9">
+                <div class="row">
+                    @foreach (var pro in Model)
+                    {
+                        <div class="col-lg-3 col-md-4 col-sm-6 mix women">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="/img/product/@pro.img">
+                                    <div class="label new">@pro.trangThai</div>
+                                    <ul class="product__hover">
+                                        <li><a href="/img/product/@pro.img" class="image-popup"><span class="arrow_expand"> </span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="~/home/detail/@pro.maQuanAo">@pro.tenSP</a></h6>
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <div class="product__price">@($"{pro.giaBan:N0} VNĐ")</div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <table class="container-md my-5" style="margin-left:200px;">
+                <tr>
+                    <td colspan="9">
+                        @{
+                            int PrevPage = ViewBag.Page - 1;
+                            if (PrevPage <= 0)
+                            {
+                                PrevPage = 1;
+                            }
+                            int NextPage = ViewBag.Page + 1;
+                            if (NextPage > ViewBag.NoOfPage)
+                            {
+                                NextPage = ViewBag.NoOfPage;
+                            }
+                        }
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <a class="page-link" href="/home/index?SortColumn=@ViewBag.SortColum&Page=@PrevPage">Prev</a>
+                            </li>
+                            @for (int i = 0; i < ViewBag.NoOfPage; i++)
+                            {
+                                if (i + 1 == ViewBag.Page)
+                                {
+                                    <li class="page-item active">
+                                        <a class="page-link" href="/home/index?SortColumn=@ViewBag.SortColumn&Page=@(i + 1)">@Html.Raw(i + 1)</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" href="/home/index?SortColumn=@ViewBag.SortColumn&Page=@(i + 1)">@Html.Raw(i + 1)</a>
+                                    </li>
+                                }
+                            }
+                            <li class="page-item">
+                                <a class="page-link" href="/home/index?SortColumn=@ViewBag.SortColumn&Page=@NextPage">Next</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        </div>
+ 

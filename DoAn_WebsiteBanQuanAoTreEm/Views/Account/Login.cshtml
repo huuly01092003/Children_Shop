@@ -1,0 +1,49 @@
+﻿@model DoAn_WebsiteBanQuanAoTreEm.ViewModel.LoginVM
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+<section class="section-content padding-y">
+
+    <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+        <article class="card-body">
+            <header class="mb-4"><h4 class="card-title">Đăng nhập tài khoản</h4></header>
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                <div class="row mx-auto">
+                    <div class="col-md-12">
+                        <label>Tên đăng nhập</label>
+                        @Html.TextBoxFor(temp => temp.UserName, new { placeholder = "Tên đăng nhập", @class = "form-control" })
+                        @Html.ValidationMessageFor(temp => temp.UserName)
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <label>Mật khẩu</label>
+
+                        @Html.PasswordFor(temp => temp.Password, new { placeholder = "Mật khẩu", @class = "form-control" })
+                        @Html.ValidationMessageFor(temp => temp.Password)
+                    </div>
+                    <br />
+
+                    <div class="row mx-auto">
+                        <div class="col-md-12">@Html.ValidationSummary()</div>
+                        <br />
+
+                        <div class="col-md-4"></div>
+                        <div class="col-md-8">
+                            <button type="submit" class="btn btn-success" style="width:170px;margin-left:-80px;">Đăng Nhập</button>
+                        </div>
+
+                    </div>
+                </div>
+                <br />
+            }
+
+            <p class="text-center mt-4">Bạn chưa có tài khoản ? <a href="/Account/Register">Đăng ký</a></p>
+        </article><!-- card-body.// -->
+    </div> <!-- card .// -->
+    <br><br>
+
+</section>

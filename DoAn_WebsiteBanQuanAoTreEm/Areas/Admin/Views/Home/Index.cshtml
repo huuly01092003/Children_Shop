@@ -1,0 +1,387 @@
+﻿@model List<DoAn_WebsiteBanQuanAoTreEm.Models.QuanAo>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/Admin_LayoutPage1.cshtml";
+}
+<form class="d-flex container-md my-3" action="/admin/home/index">
+    <input class="form-control me-2 text-bg-light" type="search" placeholder="Search" aria-label="Search" value="@ViewBag.Search" name="Search">
+    <button class="btn btn-outline-secondary text-bg-light" type="submit">Search</button>
+</form>
+<section class="product spad">
+    <div class="container-sm">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="section-title">
+                    <h4>Hot</h4>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8">
+                <form action="/admin/home/index" method="get" class=" my-2" style="margin-left:500px;">
+                    <select id="SortColumn" name="SortColumn">
+                        <option value="">-- All --</option>
+                        <option value="NameAsc">Name Asc</option>
+                        <option value="GiaBanAsc">Price Asc</option>
+                        <option value="NameDesc">Name Desc</option>
+                        <option value="GiaBanDesc">Price Desc</option>
+                    </select>
+                    <input type="submit" value="Sắp xếp" class="bg-primary" style="width:70 px;border-radius:5px;">
+                </form>
+            </div>
+        </div>
+        <div class="row property__gallery">
+            @foreach (var pro in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 mix women">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="/img/product/@pro.img">
+                            <div class="label new">@pro.trangThai</div>
+                            <ul class="product__hover">
+
+                                <li><a href="~/img/product/@pro.img" class="image-popup"><span class="arrow_expand"> </span></a></li>
+                               
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a href="/admin/home/details/@pro.maQuanAo">@pro.tenSP</a></h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price">@($"{pro.giaBan:N0} VNĐ")</div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+        <table class="container-md my-5">
+            <tr>
+                <td colspan="9">
+                    @{
+                        int PrevPage = ViewBag.Page - 1;
+                        if (PrevPage <= 0)
+                        {
+                            PrevPage = 1;
+                        }
+                        int NextPage = ViewBag.Page + 1;
+                        if (NextPage > ViewBag.NoOfPage)
+                        {
+                            NextPage = ViewBag.NoOfPage;
+                        }
+                    }
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a class="page-link" href="/admin/home/index?SortColumn=@ViewBag.SortColum&Page=@PrevPage">Prev</a>
+                        </li>
+                        @for (int i = 0; i < ViewBag.NoOfPage; i++)
+                        {
+                            if (i + 1 == ViewBag.Page)
+                            {
+                                <li class="page-item active">
+                                    <a class="page-link" href="/admin/home/index?SortColumn=@ViewBag.SortColumn&Page=@(i + 1)">@Html.Raw(i + 1)</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="/admin/home/index?SortColumn=@ViewBag.SortColumn&Page=@(i + 1)">@Html.Raw(i + 1)</a>
+                                </li>
+                            }
+                        }
+                        <li class="page-item">
+                            <a class="page-link" href="/admin/home/index?SortColumn=@ViewBag.SortColumn&Page=@NextPage">Next</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+<!-- Product Section End -->
+<!-- Banner Section Begin -->
+<section class="banner set-bg" data-setbg="/img/banner/banner1.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7 col-lg-8 m-auto">
+                <div class="banner__slider owl-carousel">
+                    <div class="banner__item">
+                        <div class="banner__text">
+                            <span>Children Team</span>
+                            <h1>Girl’s Fashion</h1>
+                            <a href="./shopgirl.html">Shop now</a>
+                        </div>
+                    </div>
+                    <div class="banner__item">
+                        <div class="banner__text">
+                            <span>Children Team</span>
+                            <h1>Boy’s Fashion</h1>
+                            <a href="./shopboy.html">Shop now</a>
+                        </div>
+                    </div>
+                    <div class="banner__item">
+                        <div class="banner__text">
+                            <span>Children Team</span>
+                            <h1>Summer Fashion</h1>
+                            <a href="./shop.html">Shop now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner Section End -->
+<!-- Trend Section Begin -->
+<section class="trend spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="trend__content">
+                    <div class="section-title">
+                        <h4>Hot Trend</h4>
+                    </div>
+                    <div class="trend__item">
+                        <div class="trend__item__pic">
+                            <img src="~/img/trend/ht-1.jpg" width="90px" height="90px" alt="">
+                        </div>
+                        <div class="trend__item__text">
+                            <h6><a href="./product-details.html" style="color: black;"> Áo cotton xám</a></h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price">299.000đ</div>
+                        </div>
+                    </div>
+                    <div class="trend__item">
+                        <div class="trend__item__pic">
+                            <img src="~/img/trend/ht-2.jpg" width="90px" height="90px" alt="">
+                        </div>
+                        <div class="trend__item__text">
+                            <h6><a href="./product-details.html" style="color: black;">T-short 3 màu</a> </h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price">199.000đ</div>
+                        </div>
+                    </div>
+                    <div class="trend__item">
+                        <div class="trend__item__pic">
+                            <img src="~/img/trend/ht-3.jpg" width="90px" height="90px" alt="">
+                        </div>
+                        <div class="trend__item__text">
+                            <h6><a href="./product-details.html" style="color: black;">Cotton T-Shirt</a> </h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price">199.000đ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="trend__content">
+                    <div class="section-title">
+                        <h4>Best seller</h4>
+                    </div>
+                    <div class="trend__item">
+                        <div class="trend__item__pic">
+                            <img src="~/img/trend/bs-1.jpg" width="90px" height="90px" alt="">
+                        </div>
+                        <div class="trend__item__text">
+                            <h6><a href="./product-details.html" style="color: black;">Váy dài tay</a> </h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price">399.000đ</div>
+                        </div>
+                    </div>
+                    <div class="trend__item">
+                        <div class="trend__item__pic">
+                            <img src="~/img/trend/bs-2.jpg" width="90px" height="90px" alt="">
+                        </div>
+                        <div class="trend__item__text">
+                            <h6><a href="./product-details.html" style="color: black;"> Đầm đỏ hoa</a><br /></h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price">599.000đ</div>
+                        </div>
+                    </div>
+                    <div class="trend__item">
+                        <div class="trend__item__pic">
+                            <img src="~/img/trend/bs-3.jpg" width="90px" height="90px" alt="">
+                        </div>
+                        <div class="trend__item__text">
+                            <h6><a href="./product-details.html" style="color: black;">Váy T-shirt</a> </h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price">499.000đ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="trend__content">
+                    <div class="section-title">
+                        <h4>Feature</h4>
+                    </div>
+                    <div class="trend__item">
+                        <div class="trend__item__pic">
+                            <img src="~/img/trend/f-1.jpg" width="90px" height="90px" alt="">
+                        </div>
+                        <div class="trend__item__text">
+                            <h6><a href="./product-details.html" style="color: black;">Váy đen</a> </h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price">499.000đ</div>
+                        </div>
+                    </div>
+                    <div class="trend__item">
+                        <div class="trend__item__pic">
+                            <img src="~/img/trend/f-2.jpg" width="90px" height="90px" alt="">
+                        </div>
+                        <div class="trend__item__text">
+                            <h6><a href="./product-details.html" style="color: black;">Váy dài tay</a> </h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price">599.000đ</div>
+                        </div>
+                    </div>
+                    <div class="trend__item">
+                        <div class="trend__item__pic">
+                            <img src="~/img/trend/f-3.jpg" width="90px" height="90px" alt="">
+                        </div>
+                        <div class="trend__item__text">
+                            <h6><a href="./product-details.html" style="color: black;">Váy đỏ dài tay</a> </h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price">599.000đ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Trend Section End -->
+<!-- Discount Section Begin -->
+<section class="discount">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 p-0">
+                <div class="discount__pic">
+                    <img src="~/img/discount.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 p-0">
+                <div class="discount__text">
+                    <div class="discount__text__title">
+                        <span>Voucher</span>
+                        <h2>Summer 2023</h2>
+                        <h5><span>Sale</span> 50%</h5>
+                    </div>
+                    <div class="discount__countdown" id="countdown-time">
+                        <div class="countdown__item">
+                            <span>22</span>
+                            <p>Days</p>
+                        </div>
+                        <div class="countdown__item">
+                            <span>18</span>
+                            <p>Hour</p>
+                        </div>
+                        <div class="countdown__item">
+                            <span>46</span>
+                            <p>Min</p>
+                        </div>
+                        <div class="countdown__item">
+                            <span>05</span>
+                            <p>Sec</p>
+                        </div>
+                    </div>
+                    <a href="./shop.html">Shop now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Discount Section End -->
+<!-- Services Section Begin -->
+<section class="services spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="services__item">
+                    <i class="fa fa-car"></i>
+                    <h6>Giao hàng nhanh</h6>
+                    <p>Miễn phí ship</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="services__item">
+                    <i class="fa fa-money"></i>
+                    <h6>Giá thành hợp lý</h6>
+                    <p>Tiết kiệm chi phí</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="services__item">
+                    <i class="fa fa-support"></i>
+                    <h6>Hỗ trợ tư vấn</h6>
+                    <p>Giờ hành chính</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="services__item">
+                    <i class="fa fa-headphones"></i>
+                    <h6>Nhiều hình thức thanh toán</h6>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

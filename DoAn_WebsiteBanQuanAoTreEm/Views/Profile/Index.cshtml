@@ -1,0 +1,27 @@
+﻿@model DoAn_WebsiteBanQuanAoTreEm.Identity.AppUser
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_LayoutPage1.cshtml";
+}
+
+<h3 class="containet-md my-3 mx-3">@ViewBag.Title</h3>
+
+<table class="table-bordered container-md my-4 mx-5">
+    <tr>
+        <th>UserName</th>
+        <td>@ViewBag.Username</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>@ViewBag.Email</td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td>@ViewBag.Address</td>
+    </tr>
+    <tr>
+        <th>PhoneNumber</th>
+        <td>@ViewBag.Phone</td>
+    </tr>
+</table>
+

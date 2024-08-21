@@ -1,0 +1,52 @@
+﻿@model DoAn_WebsiteBanQuanAoTreEm.Identity.AppUser
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_LayoutPage1.cshtml";
+}
+
+<div class="container-md mt-5">
+    <h3>Chỉnh sửa thông tin tài khoản</h3>
+
+    <hr />
+
+    @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th scope="row" class="col-md-2 font-weight-bold">Tên đăng nhập:</th>
+                    <td class="col-md-10">@Html.EditorFor(model => model.UserName, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="col-md-2 font-weight-bold">@Html.LabelFor(model => model.Email):</th>
+                    <td class="col-md-10">@Html.EditorFor(model => model.Email, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="col-md-2 font-weight-bold">Password:</th>
+                    <td class="col-md-10">@Html.EditorFor(model => model.PasswordHash, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="col-md-2 font-weight-bold">@Html.LabelFor(model => model.PhoneNumber):</th>
+                    <td class="col-md-10">@Html.EditorFor(model => model.PhoneNumber, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="col-md-2 font-weight-bold">@Html.LabelFor(model => model.Birthday):</th>
+                    <td class="col-md-10">@Html.EditorFor(model => model.Birthday, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="col-md-2 font-weight-bold">@Html.LabelFor(model => model.Address):</th>
+                    <td class="col-md-10">@Html.EditorFor(model => model.Address, new { @class = "form-control" })</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="form-group mt-3">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                @Html.ActionLink("Trở về trang chủ", "Index", null, new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+    }
+</div>

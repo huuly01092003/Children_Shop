@@ -1,0 +1,38 @@
+﻿@model List<DoAn_WebsiteBanQuanAoTreEm.Models.GioHang>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_LayoutPage1.cshtml";
+}
+
+<h2>Trang Order</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên Sản Phẩm</th>
+            <th>Người mua</th>
+            <th>Số Lượng</th>
+            <th>Giá Bán</th>
+            <th>Tổng Tiền</th>
+            <th>Thao Tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.maGioHang</td>
+                <td>@item.QuanAos.tenSP</td>
+                <td>@item.UserId</td>
+                <td>@item.soLuong</td>
+                <td>@item.QuanAos.giaBan</td>
+                <td>@(item.soLuong * item.QuanAos.giaBan)<td>
+                <td>
+                    @Html.ActionLink("Xóa", "Remove", new { cartItemId = item.maGioHang }, new { onclick = "return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?');" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

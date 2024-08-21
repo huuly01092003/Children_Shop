@@ -1,0 +1,138 @@
+﻿@model List<DoAn_WebsiteBanQuanAoTreEm.Models.GioHang>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<style>
+    .cart__quantity input[type="number"] {
+        width: 60px; /* Độ rộng của input */
+        padding: 8px; /* Kích thước padding */
+        border: 1px solid #ddd; /* Viền */
+        border-radius: 4px; /* Bo tròn góc */
+    }
+
+    .cart__quantity input[type="submit"] {
+        margin-top: 5px; /* Khoảng cách giữa input và nút Update */
+        padding: 8px 12px; /* Kích thước padding cho nút */
+        background-color: #ffc107; /* Màu nền cho nút */
+        color: #212529; /* Màu chữ cho nút */
+        border: 1px solid #ffc107; /* Viền cho nút */
+        border-radius: 4px; /* Bo tròn góc cho nút */
+        cursor: pointer; /* Con trỏ chuột khi di chuyển qua nút */
+        transition: background-color 0.3s; /* Hiệu ứng chuyển đổi màu nền */
+    }
+
+        .cart__quantity input[type="submit"]:hover {
+            background-color: #ffca2c; /* Màu nền khi di chuyển chuột qua nút */
+        }
+
+</style>
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__links">
+                    <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                    <span>Shopping cart</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Shop Cart Section Begin -->
+<section class="shop-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shop__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                
+                                int i = 1;
+                                int totPrice = 0;
+                            }
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td class="cart__product__item">
+                                        <img src="/img/product/@item.QuanAos.img" alt="" width="90px" height="90px">
+                                        <div class="cart__product__item__title">
+                                            <h6>@item.QuanAos.tenSP</h6>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price">@item.QuanAos.giaBan</td>
+                                    <td class="cart__quantity">
+                                        @using (Html.BeginForm("UpdateQuantity", "Cart", FormMethod.Get))
+                                        {
+                                            <input type="number" name="quan" value="@item.soLuong" min="1" style="width: 60px;" />
+                                            <input type="hidden" name="proid" value="@item.QuanAos.maQuanAo" />
+                                            <div>
+                                                <input type="submit" value="Update" class="cart__btn update__btn" /><span class="icon_loading"></span>
+                                            </div>
+                                           
+                                        }
+                                    </td>
+                                    <td class="cart__total">
+                                        @{
+                                            int thanhTien = 0;
+                                            thanhTien = item.soLuong * item.QuanAos.giaBan;
+                                            totPrice += thanhTien; // Corrected variable name
+                                            i++;
+                                        }
+                                        @thanhTien.ToString("N0") VNĐ
+                                    </td>
+                                    <td class="cart__close">
+                                       
+                                        <a href="/cart/remove/@item.maQuanAo"> <span class="icon_close"></span></a>
+                                        
+                                    
+                                    </td>
+                                </tr>
+                            }
+                           
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="cart__btn">
+                    <a href="/home/index">Quay về Trang chủ</a>
+                </div>
+            </div>
+            <div class="col-lg-4 offset-lg-2">
+                <div class="cart__total__procced">
+                    <h6>Thanh toán</h6>
+                    <ul>
+                        <li>Tổng thanh toán <span>@totPrice.ToString("N0") VNĐ</span></li>
+                    </ul>
+                    <a href="/home/index" class="primary-btn">Xử lí thanh toán</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

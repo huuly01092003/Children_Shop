@@ -1,0 +1,136 @@
+﻿@model List<DoAn_WebsiteBanQuanAoTreEm.Models.QuanAo>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_LayoutPage1.cshtml";
+}
+<form class="d-flex my-3" action="/admin//product/index">
+    <input class="form-control me-2 text-bg-light" type="search" placeholder="Search" aria-label="Search" value="@ViewBag.Search" name="Search">
+    <button class="btn btn-outline-secondary text-bg-light" type="submit">Search</button>
+</form>
+<p class="my-4 text-body" style="color:white;font-weight:bold;">
+    @Html.ActionLink("Thêm sản phẩm", "Create")
+</p>
+<form action="/admin/product/index" method="get" class="my-2" style="margin-left:1200px;">
+    <select id="SortColumn" name="SortColumn">
+        <option value="">-- All --</option>
+        <option value="NameAsc">Name Asc</option>
+        <option value="GiaBanAsc">Price Asc</option>
+        <option value="NameDesc">Name Desc</option>
+        <option value="GiaBanDesc">Price Desc</option>
+    </select>
+    <input type="submit" value="Sắp xếp" class="bg-primary" style="width:70px;border-radius:5px;">
+</form>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Tên sản phẩm
+        </th>
+        <th>
+            Hình ảnh
+        </th>
+        <th>
+            Chủ đề
+        </th>
+
+
+        <th>
+            Giới tính
+        </th>
+
+        <th>
+            Giá bán
+        </th>
+        <th>
+            Trạng thái
+        </th>
+        <th>
+            Mô tả
+        </th>
+        <th>
+            Màu
+        </th>
+        <th>
+            Size
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.tenSP)
+            </td>
+            <td>
+                <img src="~/img/product/@item.img" width="100px" height="100px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.maLoai)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.gioiTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.giaBan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.trangThai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.moTa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.size)
+            </td>
+
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id = item.maQuanAo }) |
+                @Html.ActionLink("Xóa", "Delete", new { id = item.maQuanAo })
+            </td>
+        </tr>
+    }
+</table>
+<table style="margin-left:250px;" class="container-md my-5">
+    <tr>
+        <td colspan="9">
+            @{
+                int PrevPage = ViewBag.Page - 1;
+                if (PrevPage <= 0)
+                {
+                    PrevPage = 1;
+                }
+                int NextPage = ViewBag.Page + 1;
+                if (NextPage > ViewBag.NoOfPage)
+                {
+                    NextPage = ViewBag.NoOfPage;
+                }
+            }
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="/admin/product/index?SortColumn=@ViewBag.SortColum&Page=@PrevPage">Prev</a>
+                </li>
+                @for (int i = 0; i < ViewBag.NoOfPage; i++)
+                {
+                    if (i + 1 == ViewBag.Page)
+                    {
+                        <li class="page-item active">
+                            <a class="page-link" href="/admin/product/index?SortColumn=@ViewBag.SortColumn&Page=@(i + 1)">@Html.Raw(i + 1)</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="/admin/product/index?SortColumn=@ViewBag.SortColumn&Page=@(i + 1)">@Html.Raw(i + 1)</a>
+                        </li>
+                    }
+                }
+                <li class="page-item">
+                    <a class="page-link" href="/admin/product/index?SortColumn=@ViewBag.SortColumn&Page=@NextPage">Next</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>

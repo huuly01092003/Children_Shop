@@ -1,0 +1,37 @@
+﻿@model List<DoAn_WebsiteBanQuanAoTreEm.Identity.AppUser>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_LayoutPage1.cshtml";
+}
+
+<h3>Danh sách tài khoản đã đăng ký</h3>
+<h5 style="font-weight:bold;" class="my-3">
+    @Html.ActionLink("Thêm tài khoản", "Create")
+</h5>
+
+<table class="table table-bordered my-5">
+    <tr>
+        <th>Tên người dùng</th>
+        <th>Email</th>
+        <th>Số điện thoại</th>
+        <th>Ngày sinh</th>
+        <th>Địa chỉ</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.UserName</td>
+            <td>@item.Email</td>
+            <td>@item.PhoneNumber</td>
+            <td>@item.Birthday</td>
+            <td>@item.Address</td>
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) | 
+                @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+
+    }
+
+</table>
+

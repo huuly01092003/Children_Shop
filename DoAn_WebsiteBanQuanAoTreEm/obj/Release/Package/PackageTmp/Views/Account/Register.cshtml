@@ -1,0 +1,83 @@
+﻿@model DoAn_WebsiteBanQuanAoTreEm.ViewModel.RegisterVM
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+<section class="section-content padding-y">
+
+    <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+        <article class="card-body">
+            <header class="mb-4"><h4 class="card-title">Đăng ký tài khoản</h4></header>
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Tên đăng nhập</label>
+                        @Html.TextBoxFor(temp => temp.UserName, new { placeholder = "Tên đăng nhập", @class = "form-control" })
+                        @Html.ValidationMessageFor(temp => temp.UserName)
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Email</label>
+
+                        @Html.TextBoxFor(temp => temp.Email, new { placeholder = "Email", @class = "form-control" })
+                        @Html.ValidationMessageFor(temp => temp.Email)
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Mật khẩu</label>
+
+                        @Html.PasswordFor(temp => temp.Password, new { placeholder = "Mật khẩu", @class = "form-control" })
+                        @Html.ValidationMessageFor(temp => temp.Password)
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Xác nhận mật khẩu</label>
+
+                        @Html.PasswordFor(temp => temp.ConfirmPassword, new { placeholder = "Xác nhận mật khẩu", @class = "form-control" })
+                        @Html.ValidationMessageFor(temp => temp.ConfirmPassword)
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Số điện thoại</label>
+
+                        @Html.TextBoxFor(temp => temp.Mobile, new { placeholder = "Số điện thoại", @class = "form-control" })
+                        @Html.ValidationMessageFor(temp => temp.Mobile)
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Ngày sinh</label>
+
+                        @Html.TextBoxFor(temp => temp.DateOfBirth, new { placeholder = "Ngày sinh", @class = "form-control", type = "date" })
+                        @Html.ValidationMessageFor(temp => temp.DateOfBirth)
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Địa chỉ nhận hàng</label>
+
+                        @Html.TextBoxFor(temp => temp.Address, new { placeholder = "Địa chỉ cụ thể", @class = "form-control" })
+                        @Html.ValidationMessageFor(temp => temp.Address)
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Thành phố / Tỉnh</label>
+
+                        @Html.TextBoxFor(temp => temp.City, new { placeholder = "Thành phố/Tỉnh", @class = "form-control" })
+                        @Html.ValidationMessageFor(temp => temp.City)
+                    </div>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-success" style="margin-left:170px; width:150px;">Đăng ký</button>
+            }
+            <p class="text-center mt-4">Bạn đã có tài khoản ? <a href="/account/login">Đăng nhập</a></p>
+
+        </article><!-- card-body.// -->
+    </div> <!-- card .// -->
+   
+    <br><br>
+
+
+</section>
+

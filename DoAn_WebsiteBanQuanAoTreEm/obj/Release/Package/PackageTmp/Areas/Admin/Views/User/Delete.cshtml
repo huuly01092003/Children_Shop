@@ -1,0 +1,61 @@
+﻿@model DoAn_WebsiteBanQuanAoTreEm.Identity.AppUser
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_LayoutPage1.cshtml";
+}
+
+<div class="container mt-5">
+    <h3>Bạn có muốn xóa tài khoản này?</h3>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-3">
+            <label class="font-weight-bold">Tên đăng nhập:</label>
+        </div>
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.UserName)
+        </div>
+
+        <div class="col-md-3">
+            <label class="font-weight-bold">Email:</label>
+        </div>
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.Email)
+        </div>
+
+        <div class="col-md-3">
+            <label class="font-weight-bold">Số điện thoại:</label>
+        </div>
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </div>
+
+        <div class="col-md-3">
+            <label class="font-weight-bold">Ngày sinh:</label>
+        </div>
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.Birthday)
+        </div>
+
+        <div class="col-md-3">
+            <label class="font-weight-bold">Địa chỉ:</label>
+        </div>
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.Address)
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Delete", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group mt-3">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-danger" style="width:150px;">Xóa</button>
+                <span class="mx-3">@Html.ActionLink("Trở về trang chủ", "Index", null, new { @class = "btn btn-secondary" })</span>
+                
+            </div>
+        </div>
+    }
+</div>

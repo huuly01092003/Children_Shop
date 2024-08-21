@@ -1,0 +1,25 @@
+﻿@model DoAn_WebsiteBanQuanAoTreEm.Models.LoaiQuanAo
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_LayoutPage1.cshtml";
+}
+<div class="container-md my-5">
+    <h2>Delete</h2>
+    <h2 style="text-align:center;">Bạn có muốn xóa ?</h2>
+    <form action="/admin/category/delete/@Model.maLoai" method="post">
+        <input type="hidden" name="id" value="@Model.maLoai" />
+        <table class="table table-control">
+            <tr>
+                <th>Tên chủ đề</th>
+
+            </tr>
+            <tr>
+                <th><input type="text" id="tenLoai" name="tenLoai" placeholder="" value="@Model.tenLoai" class="form-control" /></th>
+            </tr>
+        </table>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="/admin/category/index" class="mx-5">Cancel</a>
+    </form>
+</div>
+
